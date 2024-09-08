@@ -4,68 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jogo de Enigmas</title>
-    
-    <!-- Bootstrap CDN -->
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Spectral+SC&display=swap" rel="stylesheet">
-    
-    <!-- Custom CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
         body {
             font-family: 'Libre Baskerville', serif;
             background-color: #1e1e2f;
-            background-image: url('https://www.transparenttextures.com/patterns/gplay.png'); /* Textura de fundo */
             color: #e0e0ff;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 700px;
             padding: 20px;
         }
 
         h1 {
-            font-family: 'Spectral SC', serif;
-            font-size: 4em;
+            font-size: 3.5em;
+            font-weight: 700;
             color: #9d4edd;
-            text-shadow: 0 0 15px #9d4edd;
+            text-shadow: 0 0 20px #9d4edd;
+            margin-bottom: 1.5em;
             animation: glow 2s ease-in-out infinite alternate;
-            margin-bottom: 30px;
         }
 
         h2 {
-            font-size: 2.5em;
-            color: #e0e0ff;
-            margin-bottom: 40px;
+            font-size: 2.2em;
+            font-weight: 400;
+            margin-bottom: 1em;
             animation: fadeIn 1.5s ease-in-out;
         }
 
         p {
-            font-size: 1.5em;
-            margin-bottom: 30px;
+            font-size: 1.3em;
+            margin-bottom: 1.5em;
             animation: fadeIn 2s ease-in-out;
         }
 
         input {
-            padding: 15px;
+            padding: 12px;
             margin-bottom: 20px;
             border: 2px solid #9d4edd;
             border-radius: 5px;
             background-color: #333;
             color: #e0e0ff;
-            font-size: 1.3em;
+            font-size: 1.1em;
             width: 100%;
-            text-align: center;
         }
 
         button {
-            padding: 15px 30px;
+            padding: 10px 25px;
             background-color: #9d4edd;
             color: #fff;
             border: none;
@@ -73,7 +69,7 @@
             cursor: pointer;
             font-size: 1.2em;
             animation: pulse 1.5s infinite;
-            margin-top: 20px;
+            transition: background-color 0.3s ease-in-out;
         }
 
         button:hover {
@@ -81,9 +77,9 @@
         }
 
         #feedback {
-            margin-top: 30px;
+            margin-top: 20px;
             color: #ff6b6b;
-            font-size: 1.5em;
+            font-size: 1.4em;
         }
 
         /* Animações */
@@ -124,18 +120,19 @@
     </style>
 </head>
 <body>
-    <div class="container text-center">
+    <div class="container">
         <h1>Jogo de Enigmas</h1>
-        <div id="fase" class="row justify-content-center">
-            <div class="col-md-8">
-                <h2 id="tituloFase"></h2>
-                <p id="pergunta"></p>
-                <input type="text" id="resposta" placeholder="Digite sua resposta" class="form-control">
-                <button onclick="verificarResposta()">Enviar</button>
-                <p id="feedback"></p>
-            </div>
+        <div id="fase">
+            <h2 id="tituloFase"></h2>
+            <p id="pergunta"></p>
+            <input type="text" id="resposta" class="form-control" placeholder="Digite sua resposta">
+            <button class="btn mt-3" onclick="verificarResposta()">Enviar</button>
+            <p id="feedback"></p>
         </div>
     </div>
+
+    <!-- Bootstrap JS (for future use if needed) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         const enigmas = {
@@ -204,8 +201,5 @@
 
         window.onload = carregarFase;
     </script>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
