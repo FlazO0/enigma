@@ -3,157 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo de Enigmas</title>
+    <title>Site Dark com Animações</title>
     <style>
+        /* Estilo Global */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
+            background-color: #0e0e0e;
+            color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
         }
 
+        /* Container Centralizado */
         .container {
             text-align: center;
-            background-color: #ffffff;
-            padding: 30px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            width: 300px;
+            padding: 50px;
+            background: rgba(20, 20, 20, 0.9);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        /* Efeitos de Brilho e Sombras */
+        .container:before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, #ff0077, #7700ff);
+            z-index: -1;
+            filter: blur(20px);
+            opacity: 0.7;
+            border-radius: 20px;
+            animation: rotateGlow 4s linear infinite;
         }
 
         h1 {
-            color: #753300;
+            font-size: 3rem;
+            color: #f4f4f4;
+            text-shadow: 0 0 10px #ff0077, 0 0 20px #7700ff;
             margin-bottom: 20px;
+            animation: glowText 2s ease-in-out infinite;
         }
 
-        h2 {
-            color: #F56A00;
-            margin-bottom: 10px;
-        }
-
-        input {
-            width: 80%;
-            padding: 10px;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            border: 2px solid #F56A00;
-            border-radius: 5px;
+        p {
+            font-size: 1.2rem;
+            color: #cfcfcf;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            margin-bottom: 30px;
         }
 
         button {
-            padding: 10px 20px;
-            background-color: #753300;
-            color: #fff;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            color: #ffffff;
+            background: linear-gradient(45deg, #ff0077, #7700ff);
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 0, 119, 0.5), 0 0 20px rgba(119, 0, 255, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         button:hover {
-            background-color: #F56A00;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 0, 119, 0.8), 0 0 30px rgba(119, 0, 255, 0.8);
         }
 
-        #feedback {
-            margin-top: 10px;
-            color: red;
+        /* Animações */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes rotateGlow {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes glowText {
+            0% {
+                text-shadow: 0 0 10px #ff0077, 0 0 20px #7700ff;
+            }
+            50% {
+                text-shadow: 0 0 20px #ff0077, 0 0 40px #7700ff;
+            }
+            100% {
+                text-shadow: 0 0 10px #ff0077, 0 0 20px #7700ff;
+            }
+        }
+
+        /* Animação do Fundo */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #101010, #000000);
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        /* Pontos brilhantes animados no fundo */
+        .star {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: moveStar 10s linear infinite;
+        }
+
+        @keyframes moveStar {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-100vh);
+            }
         }
     </style>
 </head>
 <body>
+
+    <!-- Fundo escuro com estrelas animadas -->
+    <div class="background">
+        <!-- Gerar várias estrelas no fundo -->
+        <div class="star" style="top: 90%; left: 30%; width: 4px; height: 4px;"></div>
+        <div class="star" style="top: 70%; left: 60%;"></div>
+        <div class="star" style="top: 80%; left: 40%;"></div>
+        <div class="star" style="top: 60%; left: 20%;"></div>
+        <div class="star" style="top: 50%; left: 10%; width: 3px; height: 3px;"></div>
+        <div class="star" style="top: 40%; left: 80%; width: 4px; height: 4px;"></div>
+        <div class="star" style="top: 30%; left: 50%;"></div>
+        <div class="star" style="top: 20%; left: 90%;"></div>
+    </div>
+
+    <!-- Container principal -->
     <div class="container">
-        <h1>Jogo de Enigmas</h1>
-        <div id="fase">
-            <h2 id="tituloFase"></h2>
-            <p id="pergunta"></p>
-            <input type="text" id="resposta" placeholder="Digite sua resposta">
-            <button onclick="verificarResposta()">Enviar</button>
-            <p id="feedback"></p>
-        </div>
+        <h1>Bem-vindo ao Site Dark</h1>
+        <p>Desfrute de um design moderno e interativo com sombras, brilhos e animações.</p>
+        <button onclick="clicou()">Clique Aqui</button>
     </div>
 
     <script>
-        // Definindo o JSON dentro do JavaScript
-        const enigmas = {
-            "fases": [
-                {
-                    "nome": "Fase 1",
-                    "titulo": "O Enigma do Número",
-                    "pergunta": "Qual é o número que se lê de trás para frente e ainda é o mesmo?",
-                    "respostas": ["8", "oito"]
-                },
-                {
-                    "nome": "Fase 2",
-                    "titulo": "O Enigma da Água",
-                    "pergunta": "O que corre mas não tem pernas?",
-                    "respostas": ["rio", "correnteza"]
-                },
-                {
-                    "nome": "Fase 3",
-                    "titulo": "Fase Final",
-                    "pergunta": "O que é maior que um prédio, mas pesa menos?",
-                    "respostas": ["sombra", "ar"]
-                }
-            ]
+        // Função que exibe uma mensagem ao clicar no botão
+        function clicou() {
+            alert('Você clicou no botão!');
+        }
+
+        // Gerar várias estrelas dinamicamente no fundo
+        window.onload = function() {
+            const background = document.querySelector('.background');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                const size = Math.random() * 5 + 2 + 'px';
+                star.style.width = size;
+                star.style.height = size;
+                star.style.top = Math.random() * 100 + '%';
+                star.style.left = Math.random() * 100 + '%';
+                background.appendChild(star);
+            }
         };
-
-        let faseAtual = 0;
-
-        // Função para carregar a fase atual
-        function carregarFase() {
-            const fase = enigmas.fases[faseAtual];
-            const tituloFase = document.getElementById('tituloFase');
-            const pergunta = document.getElementById('pergunta');
-            const feedback = document.getElementById('feedback');
-            const respostaInput = document.getElementById('resposta');
-
-            // Limpar o feedback e o campo de resposta
-            feedback.textContent = '';
-            respostaInput.value = '';
-
-            // Definir o título da fase e a pergunta
-            tituloFase.textContent = fase.nome + (fase.titulo ? ` - ${fase.titulo}` : '');
-            pergunta.textContent = fase.pergunta;
-        }
-
-        // Função para verificar a resposta inserida pelo usuário
-        function verificarResposta() {
-            const respostaInput = document.getElementById('resposta').value.trim().toLowerCase();
-            const feedback = document.getElementById('feedback');
-            const respostasCertas = enigmas.fases[faseAtual].respostas.map(resposta => resposta.toLowerCase());
-
-            if (respostasCertas.includes(respostaInput)) {
-                avancarParaProximaFase();
-            } else {
-                feedback.textContent = 'Resposta incorreta. Tente novamente!';
-            }
-        }
-
-        // Função para avançar para a próxima fase
-        function avancarParaProximaFase() {
-            const feedback = document.getElementById('feedback');
-
-            faseAtual++;
-
-            if (faseAtual < enigmas.fases.length) {
-                carregarFase();
-            } else {
-                document.getElementById('fase').innerHTML = `
-                    <h2>Parabéns!</h2>
-                    <p>Você completou todos os enigmas!</p>
-                `;
-            }
-        }
-
-        // Carregar a primeira fase quando a página é carregada
-        window.onload = carregarFase;
     </script>
+
 </body>
 </html>
