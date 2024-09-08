@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jogo de Enigmas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Fira+Sans:wght@300&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,127 +13,119 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #121212;
-            color: #ffffff;
+            font-family: 'Fira Sans', sans-serif;
+            background-color: #1e1e2f;
+            color: #e0e0ff;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden;
-        }
-
-        .container {
             text-align: center;
-            background-color: #1e1e1e;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-            transition: all 0.5s ease;
-            width: 350px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transform: rotate(45deg);
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            0% {
-                left: -100%;
-            }
-            100% {
-                left: 100%;
-            }
         }
 
         h1 {
-            color: #ff9800;
-            margin-bottom: 20px;
-            font-size: 32px;
-            text-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
+            font-family: 'Cinzel', serif;
+            font-size: 3em;
+            color: #9d4edd;
+            text-shadow: 0 0 15px #9d4edd;
+            animation: glow 2s ease-in-out infinite alternate;
         }
 
         h2 {
-            color: #ff5722;
-            margin-bottom: 10px;
-            font-size: 22px;
-            text-shadow: 0 0 8px rgba(255, 87, 34, 0.5);
+            font-size: 2em;
+            color: #e0e0ff;
+            margin-bottom: 20px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in-out;
         }
 
         input {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #9d4edd;
+            border-radius: 5px;
+            background-color: #333;
+            color: #e0e0ff;
+            font-size: 1em;
             width: 80%;
-            padding: 12px;
-            margin-top: 20px;
-            border: 2px solid #ff9800;
-            border-radius: 8px;
-            background-color: #2c2c2c;
-            color: #fff;
-            outline: none;
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-
-        input:focus {
-            border-color: #ff5722;
-            box-shadow: 0 0 8px rgba(255, 87, 34, 0.5);
+            text-align: center;
         }
 
         button {
-            margin-top: 20px;
-            padding: 12px 25px;
-            background-color: #ff9800;
+            padding: 10px 20px;
+            background-color: #9d4edd;
             color: #fff;
             border: none;
-            border-radius: 8px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
-            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.4);
-            transition: all 0.3s ease;
+            font-size: 1em;
+            animation: pulse 1.5s infinite;
         }
 
         button:hover {
-            background-color: #ff5722;
-            box-shadow: 0 8px 20px rgba(255, 87, 34, 0.6);
+            background-color: #7c2dc9;
         }
 
         #feedback {
-            margin-top: 15px;
-            color: #ff3d00;
-            font-size: 14px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            margin-top: 20px;
+            color: #ff6b6b;
+            font-size: 1.2em;
         }
 
-        .show-feedback {
-            opacity: 1;
+        /* Animações */
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #9d4edd, 0 0 20px #9d4edd, 0 0 30px #9d4edd, 0 0 40px #7c2dc9;
+            }
+            to {
+                text-shadow: 0 0 20px #7c2dc9, 0 0 30px #9d4edd, 0 0 40px #5f259b, 0 0 50px #7c2dc9;
+            }
         }
 
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 10px #9d4edd, 0 0 20px #9d4edd;
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 20px #7c2dc9, 0 0 30px #7c2dc9;
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 10px #9d4edd, 0 0 20px #9d4edd;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Jogo de Enigmas</h1>
-        <div id="fase">
-            <h2 id="tituloFase"></h2>
-            <p id="pergunta"></p>
-            <input type="text" id="resposta" placeholder="Digite sua resposta">
-            <button onclick="verificarResposta()">Enviar</button>
-            <p id="feedback"></p>
-        </div>
+    <h1>Jogo de Enigmas</h1>
+    <div id="fase">
+        <h2 id="tituloFase"></h2>
+        <p id="pergunta"></p>
+        <input type="text" id="resposta" placeholder="Digite sua resposta">
+        <button onclick="verificarResposta()">Enviar</button>
+        <p id="feedback"></p>
     </div>
 
     <script>
-        // JSON com enigmas e fases
         const enigmas = {
             "fases": [
                 {
@@ -158,7 +151,6 @@
 
         let faseAtual = 0;
 
-        // Carrega a fase atual
         function carregarFase() {
             const fase = enigmas.fases[faseAtual];
             const tituloFase = document.getElementById('tituloFase');
@@ -166,17 +158,13 @@
             const feedback = document.getElementById('feedback');
             const respostaInput = document.getElementById('resposta');
 
-            // Limpa o feedback e o campo de resposta
             feedback.textContent = '';
             respostaInput.value = '';
-            feedback.classList.remove('show-feedback');
 
-            // Define o título da fase e a pergunta
             tituloFase.textContent = fase.nome + (fase.titulo ? ` - ${fase.titulo}` : '');
             pergunta.textContent = fase.pergunta;
         }
 
-        // Verifica a resposta inserida
         function verificarResposta() {
             const respostaInput = document.getElementById('resposta').value.trim().toLowerCase();
             const feedback = document.getElementById('feedback');
@@ -186,14 +174,10 @@
                 avancarParaProximaFase();
             } else {
                 feedback.textContent = 'Resposta incorreta. Tente novamente!';
-                feedback.classList.add('show-feedback');
             }
         }
 
-        // Avança para a próxima fase
         function avancarParaProximaFase() {
-            const feedback = document.getElementById('feedback');
-
             faseAtual++;
 
             if (faseAtual < enigmas.fases.length) {
@@ -206,7 +190,6 @@
             }
         }
 
-        // Carregar a primeira fase quando a página é carregada
         window.onload = carregarFase;
     </script>
 </body>
