@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Enigmas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            width: 300px;
+        }
+
+        h1 {
+            color: #753300;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #F56A00;
+            margin-bottom: 10px;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border: 2px solid #F56A00;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #753300;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #F56A00;
+        }
+
+        #feedback {
+            margin-top: 10px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Jogo de Enigmas</h1>
+        <div id="fase">
+            <h2 id="tituloFase"></h2>
+            <p id="pergunta"></p>
+            <input type="text" id="resposta" placeholder="Digite sua resposta">
+            <button onclick="verificarResposta()">Enviar</button>
+            <p id="feedback"></p>
+        </div>
+    </div>
+
+    <script>
+        // Definindo o JSON dentro do JavaScript
+        const enigmas = {
+            "fases": [
+                {
+                    "nome": "Fase 1",
+                    "titulo": "O Enigma do Número",
+                    "pergunta": "Qual é o número que se lê de trás para frente e ainda é o mesmo?",
+                    "respostas": ["8", "oito"]
+                },
+                {
+                    "nome": "Fase 2",
+                    "titulo": "O Enigma da Água",
+                    "pergunta": "O que corre mas não tem pernas?",
+                    "respostas": ["rio", "correnteza"]
+                },
+                {
+                    "nome": "Fase 3",
+                    "titulo": "Fase Final",
+                    "pergunta": "O que é maior que um prédio, mas pesa menos?",
+                    "respostas": ["sombra", "ar"]
+                }
+            ]
+        };
+
+        let faseAtual = 0;
+
+        // Função para carregar a fase atual
+        function carregarFase() {
+            const fase = enigmas.fases[faseAtual];
+            const tituloFase = document.getElementById('tituloFase');
+            const pergunta = document.getElementById('pergunta');
+            const feedback = document.getElementById('feedback');
+            const respostaInput = document.getElementById('resposta');
+
+            // Limpar o feedback e o campo de resposta
+            feedback.textContent = '';
+            respostaInput.value = '';
+
+            // Definir o título da fase e a pergunta
+            tituloFase.textContent = fase.nome + (fase.titulo ? ` - ${fase.titulo}` : '');
+            pergunta.textContent = fase.pergunta;
+        }
+
+        // Função para verificar a resposta inserida pelo usuário
+        function verificarResposta() {
+            const respostaInput = document.getElementById('resposta').value.trim().toLowerCase();
+            const feedback = document.getElementById('feedback');
+            const respostasCertas = enigmas.fases[faseAtual].respostas.map(resposta => resposta.toLowerCase());
+
+            if (respostasCertas.includes(respostaInput)) {
+                avancarParaProximaFase();
+            } else {
+                feedback.textContent = 'Resposta incorreta. Tente novamente!';
+            }
+        }
+
+        // Função para avançar para a próxima fase
+        function avancarParaProximaFase() {
+            const feedback = document.getElementById('feedback');
+
+            faseAtual++;
+
+            if (faseAtual < enigmas.fases.length) {
+                carregarFase();
+            } else {
+                document.getElementById('fase').innerHTML = `
+                    <h2>Parabéns!</h2>
+                    <p>Você completou todos os enigmas!</p>
+                `;
+            }
+        }
+
+        // Carregar a primeira fase quando a página é carregada
+        window.onload = carregarFase;
+    </script>
+</body>
+</html>
