@@ -108,7 +108,7 @@
 </head>
 <body>
     <div class="card-container">
-        <h1>???</h1>
+        <h1>ENIGMA</h1>
         <div id="fase">
             <p class="fase-title" id="tituloFase"></p>
             <p id="pergunta"></p>
@@ -128,21 +128,27 @@
             "fases": [
                 {
                     "nome": "Fase 1",
-                    "titulo": "O Enigma do Número",
-                    "pergunta": "Qual é o número que se lê de trás para frente e ainda é o mesmo?",
-                    "respostas": ["8", "oito"]
+                    "titulo": "O Enigma do Hexágono",
+                    "pergunta": "Encontre o número de um hexágono e adicione o número de lados de um triângulo, esse é o número.",
+                    "respostas": ["9", "nove"]
                 },
                 {
                     "nome": "Fase 2",
-                    "titulo": "O Enigma da Água",
-                    "pergunta": "O que corre mas não tem pernas?",
-                    "respostas": ["rio", "correnteza"]
+                    "titulo": "Planetas",
+                    "pergunta": "Qual é o número de planetas no sistema solar (excluindo Pluatão)?",
+                    "respostas": ["8", "oito"]
                 },
                 {
                     "nome": "Fase 3",
-                    "titulo": "Fase Final",
-                    "pergunta": "O que é maior que um prédio, mas pesa menos?",
-                    "respostas": ["sombra", "ar"]
+                    "titulo": "Continentes",
+                    "pergunta": "Número de continentes na Terra e subtraia 1",
+                    "respostas": ["6", "seis"]
+                },
+                {
+                     "nome": "Ultima fase",
+                    "titulo": "O mais difícil",
+                    "pergunta": "Se há três, você tem três. Se há duas, você tem duas. Mas se há uma, você não tem nenhuma. O que é?",
+                    "respostas": ["opção", "a opção"]
                 }
             ]
         };
@@ -183,7 +189,7 @@
             } else {
                 document.getElementById('fase').innerHTML = `
                     <h2>Parabéns!</h2>
-                    <p>Você completou todos os enigmas!</p>
+                    <p>Você completou todos os enigmas! o senha do cofre é 051</p>
                 `;
             }
         }
