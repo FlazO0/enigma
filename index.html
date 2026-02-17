@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RIDDLES</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        enigmatic: ["Cinzel", "serif"],
+                        clean: ["Space Grotesk", "system-ui", "sans-serif"],
+                    },
+                    keyframes: {
+                        fadeUp: {
+                            "0%": {
+                                opacity: "0",
+                                transform: "translateY(10px)"
+                            },
+                            "100%": {
+                                opacity: "1",
+                                transform: "translateY(0)"
+                            },
+                        },
+                        pulseSoft: {
+                            "0%, 100%": {
+                                opacity: "0.55"
+                            },
+                            "50%": {
+                                opacity: "0.9"
+                            },
+                        }
+                    },
+                    animation: {
+                        fadeUp: "fadeUp 260ms ease-out",
+                        pulseSoft: "pulseSoft 2.2s ease-in-out infinite",
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-black text-zinc-100 selection:bg-violet-500/30 selection:text-zinc-50">
+    <div class="pointer-events-none fixed inset-0">
+        <div class="absolute -top-40 left-10 h-96 w-96 rounded-full bg-violet-600/10 blur-3xl animate-pulseSoft"></div>
+        <div class="absolute -top-40 right-10 h-96 w-96 rounded-full bg-cyan-500/10 blur-3xl animate-pulseSoft"></div>
+        <div class="absolute bottom-[-10rem] left-1/2 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-white/5 blur-3xl"></div>
+    </div>
+    <main class="relative mx-auto flex min-h-screen w-full max-w-4xl flex-col px-6 py-10">
+        <header class="flex flex-col gap-6">
+            <div class="flex items-start justify-between gap-4">
+                <div class="space-y-1">
+                    <h1 class="font-enigmatic text-3xl tracking-[0.25em] text-zinc-50">RIDDLES</h1>
+                    <p class="font-clean text-sm text-zinc-400">Answer the riddle. Advance. Repeat.</p>
+                </div>
+                <button id="openRankingBtn" class="font-clean text-sm text-zinc-300 hover:text-zinc-50 transition" type="button">Ranking</button>
+            </div>
+            <div class="space-y-2">
+                <div class="flex items-center justify-between font-clean text-xs text-zinc-400">
+                    <span id="stageLabel">Stage 1</span>
+                    <span id="stageCount">1/4</span>
+                </div>
+                <div class="h-1.5 w-full rounded-full bg-white/10 overflow-hidden">
+                    <div id="progressBar" class="h-full w-0 rounded-full bg-white/30 transition-all duration-300"></div>
+                </div>
+            </div>
+        </header>
+        <section class="mt-10 space-y-6 animate-fadeUp">
+            <div class="space-y-3">
+                <p id="stageTitle" class="font-enigmatic text-xl tracking-wide text-zinc-100">The Hexagon Riddle</p>
+                <p id="question" class="font-clean text-lg leading-relaxed text-zinc-200/90">Find the number of a hexagon and add the number of sides of a triangle. What number do you get?</p>
+                <div class="flex items-center gap-3 font-clean text-xs text-zinc-400">
+                    <span id="difficultyText" class="rounded-full border border-white/10 px-3 py-1 bg-white/5">Difficulty: Easy</span>
+                    <span id="attemptsText">Attempts: 0</span>
+                    <span id="timerText">Time: 0s</span>
+                </div>
+            </div>
+            <div class="space-y-3">
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <input id="answerInput" type="text" autocomplete="off" placeholder="Type your answer…" class="w-full flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-3 font-clean text-base text-zinc-100 placeholder:text-zinc-500 outline-none focus:ring-4 focus:ring-violet-500/20 focus:border-violet-400/40 transition" />
+                    <button id="sendBtn" type="button" class="rounded-xl bg-white/10 px-5 py-3 font-clean text-white font-semibold text-black hover:opacity-95 active:opacity-90 transition">Submit</button>
+                </div>
+                <div class="flex items-center justify-between gap-3">
+                    <button id="hintBtn" type="button" class="font-clean text-sm text-zinc-300 hover:text-zinc-50 transition">Show hint</button>
+                    <div class="font-clean text-xs text-zinc-500">
+                        <span class="text-zinc-400">Enter</span> submit • <span class="text-zinc-400">Esc</span> clear
+                    </div>
+                </div>
+                <p id="hintText" class="font-clean text-sm text-zinc-400 hidden">Hint goes here.</p>
+                <p id="feedback" class="font-clean text-sm min-h-[20px]"></p>
+            </div>
+        </section>
+        <footer class="mt-auto pt-10 font-clean text-xs text-zinc-500">Local progress is saved on this device (localStorage).</footer>
+    </main>
+    <div id="rankingModal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/70"></div>
+        <div
+            class="relative mx-auto mt-16 w-[92%] max-w-xl rounded-2xl border border-white/10 bg-zinc-950/90 p-6 backdrop-blur">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <h2 class="font-enigmatic text-lg tracking-wide">Local Ranking</h2>
+                    <p class="font-clean text-sm text-zinc-400">Best runs on this browser.</p>
+                </div>
+                <button id="closeRankingBtn" class="font-clean text-sm text-zinc-300 hover:text-zinc-50 transition">Close</button>
+            </div>
+            <div class="mt-5 space-y-3">
+                <div class="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+                    <div class="font-clean text-sm text-zinc-300">Your best time</div>
+                    <div id="bestTimeText" class="font-clean text-sm text-zinc-50">—</div>
+                </div>
+                <div class="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+                    <div class="font-clean text-sm text-zinc-300">Your best attempts</div>
+                    <div id="bestAttemptsText" class="font-clean text-sm text-zinc-50">—</div>
+                </div>
+                <div class="rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+                    <div class="flex items-center justify-between">
+                        <div class="font-clean text-sm text-zinc-300">Recent runs</div>
+                        <button id="clearRankingBtn" class="font-clean text-xs text-zinc-300 hover:text-zinc-50 transition">Clear</button>
+                    </div>
+                    <div id="runsList" class="mt-3 space-y-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
